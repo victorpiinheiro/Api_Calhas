@@ -1,24 +1,25 @@
 import dotenv from 'dotenv';
-import { resolve } from 'path';
-import express from 'express';
 
 dotenv.config();
 
+import express from 'express';
+
+import clienteRoutes from './src/routes/clienteRoutes';
 
 class App {
-  constructor(){
+  constructor() {
     this.app = express();
     this.middleware();
     this.routes();
   }
 
-  middleware(){
-this.app.use(express.urlencoded({extended: true}))
-this.app.use(express.json());
+  middleware() {
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json());
   }
 
-  routes(){
-
+  routes() {
+    this.app.use('/clientes', clienteRoutes);
   }
 }
 
