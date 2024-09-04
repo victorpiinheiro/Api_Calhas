@@ -22,4 +22,12 @@ model Clientes {
     createdAt DateTime @default(now())
 }
 
+model Funcionarios {
+    id Int @id @default(autoincrement())
+    name String
+    position String
+    hireDate DateTime
+    salary  Float
+}
+
 
