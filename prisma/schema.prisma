@@ -30,4 +30,13 @@ model Funcionarios {
     salary  Float
 }
 
+model Produto {
+  id        Int  @id @default(autoincrement())
+  name      String
+  description String?
+  price     Float
+  stock   Int
+  imageUrl String?
+ // pedidos   PedidoProduto[]
+}
 
