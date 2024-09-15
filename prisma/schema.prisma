@@ -23,20 +23,39 @@ model Clientes {
 }
 
 model Funcionarios {
-    id Int @id @default(autoincrement())
-    name String
+    id       Int      @id @default(autoincrement())
+    name     String
     position String
     hireDate DateTime
-    salary  Float
+    salary   Float
 }
 
 model Produto {
-  id        Int  @id @default(autoincrement())
-  name      String
-  description String?
-  price     Float
-  stock   Int
-  imageUrl String?
- // pedidos   PedidoProduto[]
+    id          Int     @id @default(autoincrement())
+    name        String
+    description String?
+    price       Float
+    stock       Int
+    imageUrl    String?
+    // pedidos   PedidoProduto[]
 }
 
+model Service {
+   id Int @id @default(autoincrement())
+   name String
+   description String
+   price Float
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   @@map("servico")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password_hash  String   
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
