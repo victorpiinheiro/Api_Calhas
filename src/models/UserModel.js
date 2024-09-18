@@ -45,7 +45,7 @@ export default class User {
     return deleteUser;
   }
 
-  async veriryUser(email) {
+  async verifyUser(email) {
     const user = await prisma.user.findUnique({
       where: {
         email,

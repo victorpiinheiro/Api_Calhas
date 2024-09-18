@@ -30,7 +30,8 @@ class User {
     try {
       const users = await userModel.listAllUsers();
       if (!users) res.status(200).json({ message: 'Não há usuarios para mostrar' });
-
+      console.log(req.userId);
+      console.log(req.userEmail);
       res.status(200).json({ users });
     } catch (e) {
       res.status(500).json({ message: e.errors });

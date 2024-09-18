@@ -9,6 +9,8 @@ import clienteRoutes from './src/routes/clienteRoutes';
 import funcionarioRoutes from './src/routes/funcionarioRoutes';
 import produtosRoutes from './src/routes/produtosRoutes';
 import userRoutes from './src/routes/UserRoutes';
+import pedidoRoutes from './src/routes/pedidoRoutes';
+import tokenRoutes from './src/routes/tokenRoutes';
 
 class App {
   constructor() {
@@ -28,6 +30,8 @@ class App {
     this.app.use('/funcionarios', funcionarioRoutes);
     this.app.use('/produtos', produtosRoutes);
     this.app.use('/users', userRoutes);
+    this.app.use('/orders', pedidoRoutes);
+    this.app.use('/tokens', tokenRoutes);
   }
 }
 
