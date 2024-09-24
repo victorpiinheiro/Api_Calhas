@@ -10,13 +10,28 @@ export default class Pedido {
     return createPedido;
   }
 
-  async getClientById(id) {
-    const client = await prisma.clientes.findUnique({
+  async getPedidoById(id) {
+    const pedido = await prisma.pedidos.findUnique({
       where: {
         id: parseInt(id, 10),
       },
     });
 
-    return client;
+    return pedido;
+  }
+
+  async getAllPedidos() {
+    const pedidos = await prisma.pedidos.findMany({});
+    return pedidos;
+  }
+
+  async deletePedidoByid(id) {
+    const deletePedido = await prisma.pedidos.deleteMany({
+      where: {
+        id: parseInt(id, 10),
+      },
+    });
+
+    return deletePedido;
   }
 }
