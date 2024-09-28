@@ -9,7 +9,6 @@ class TokenController {
     try {
       const { email = '', password = '' } = req.body;
       if (!email || !password) {
-        console.log(email, password);
         return res.status(401).json({
           errors: ['Credenciais invalidas'],
 
@@ -30,7 +29,6 @@ class TokenController {
       }
 
       const { id } = verificaEmail;
-      console.log(id);
       const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });

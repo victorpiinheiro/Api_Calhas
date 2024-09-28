@@ -38,7 +38,7 @@ class Pedidos {
       }
 
       return res.status(200).json({
-        users: getPedido,
+        pedido: getPedido,
       });
     } catch (e) {
       return res.status(500).json({
@@ -50,24 +50,27 @@ class Pedidos {
   async index(req, res) {
     try {
       const pedidos = await pedidoModel.getAllPedidos();
-      console.log(pedidos.length);
+
       if (pedidos.length === 0) {
         return res.status(401).json({
           errors: ['nao há registros'],
         });
       }
-      const [{
-        description, price, status, dataPedido, id,
-      }] = pedidos;
 
-      const [ano, mes, dia] = new Date(dataPedido).toISOString().split('T')[0].split('-');
-      const organizaData = `${dia}/${mes}/${ano}`;
+      const formataDados = pedidos.map((pedido) => {
+        const {
+          description, price, status, dataPedido,
+        } = pedido;
 
-      return res.status(200).json({
-        pedidos: {
-          id, description, status, dataPedido: organizaData, price,
-        },
+        const [ano, mes, dia] = dataPedido.toISOString().split('T')[0].split('-');
+        const formataData = `${dia}/${mes}/${ano}`;
+
+        return {
+          description, price, status, dataPedido: formataData,
+        };
       });
+
+      return res.status(200).json(formataDados);
     } catch (error) {
       console.log(error);
       return res.status(500).json({
@@ -101,6 +104,32 @@ class Pedidos {
         errors: ['Erro ao excluir o pedido'],
       });
     }
+  }
+
+  async update(req, res) {
+    const { id } = req.params;
+    const {
+      description, status, price,
+    } = req.body;
+
+    if (!description || !status || !price) {
+      return res.status(201).json({
+        errors: ['Dados invalidos'],
+      });
+    }
+    const VerificaPedidoExistente = await pedidoModel.getPedidoById(id);
+    if (!VerificaPedidoExistente) {
+      return res.status(201).json({
+        errors: ['Pedido nao encontrado ou nao existe'],
+      });
+    }
+
+    await pedidoModel.updateOrders(id, { description, status, price });
+
+    return res.status(200).json({
+      message: `Pedido nº (${id}) alterado com sucesso`,
+
+    });
   }
 }
 

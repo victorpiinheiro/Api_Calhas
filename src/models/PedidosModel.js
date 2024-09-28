@@ -34,4 +34,15 @@ export default class Pedido {
 
     return deletePedido;
   }
+
+  async updateOrders(id, data) {
+    const editaPedido = await prisma.pedidos.update({
+      where: {
+        id: parseInt(id, 10),
+      },
+      data,
+    });
+
+    return editaPedido;
+  }
 }
