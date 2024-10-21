@@ -4,14 +4,14 @@ const prisma = new PrismaClient();
 
 export default class FuncionarioModel {
   async criaFuncionario(data) {
-    const user = await prisma.funcionarios.create({
+    const user = await prisma.funcionario.create({
       data,
     });
     return user;
   }
 
   async ListaFuncionarios() {
-    const users = await prisma.funcionarios.findMany({
+    const users = await prisma.funcionario.findMany({
       orderBy: {
         id: 'desc',
       },
@@ -22,7 +22,7 @@ export default class FuncionarioModel {
 
   async ListaUmFuncionario(id) {
     const idInt = parseInt(id, 10);
-    const user = await prisma.funcionarios.findUnique({
+    const user = await prisma.funcionario.findUnique({
       where: {
         id: idInt,
       },
@@ -31,9 +31,9 @@ export default class FuncionarioModel {
     return user;
   }
 
-  async editaFuncionaro(id, data) {
+  async editaFuncionario(id, data) {
     const idInt = parseInt(id, 10);
-    const user = await prisma.funcionarios.update({
+    const user = await prisma.funcionario.update({
       where: {
         id: idInt,
       },
@@ -44,7 +44,7 @@ export default class FuncionarioModel {
 
   async deleteUser(id) {
     const idInt = parseInt(id, 10);
-    const deleteUser = await prisma.funcionarios.delete({
+    const deleteUser = await prisma.funcionario.delete({
       where: {
         id: idInt,
       },

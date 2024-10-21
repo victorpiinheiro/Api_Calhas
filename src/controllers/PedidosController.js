@@ -42,7 +42,7 @@ class Pedidos {
       });
     } catch (e) {
       return res.status(500).json({
-        errors: ['erro ao procurar usuario'],
+        errors: ['erro ao procurar pedido'],
       });
     }
   }

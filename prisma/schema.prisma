@@ -25,12 +25,27 @@ model Clientes {
     pedidos Pedidos[]
 }
 
-model Funcionarios {
-    id       Int      @id @default(autoincrement())
-    name     String
-    position String
-    hireDate DateTime
-    salary   Float
+model Funcionario {
+  id              Int       @id @default(autoincrement())
+  name            String
+  position        String
+  hireDate        DateTime
+  salary          Float
+  email           String    @unique
+  phone        String?
+  address        String?
+  data_nascimento DateTime?
+  status          Status    @default(ativo)
+  departamento    String?
+  data_demissao   DateTime?
+  observacoes     String?
+
+  @@map("Funcionarios")
+}
+
+enum Status {
+  ativo
+  inativo
 }
 
 model Produto {

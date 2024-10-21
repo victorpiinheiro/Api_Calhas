@@ -6,20 +6,57 @@ class FuncionarioController {
   async store(req, res) {
     try {
       const {
-        name, position, hireDate, salary,
+        name, position, hireDate,
+        salary, address, data_nascimento,
+        departamento, email, observacoes, phone,
+        status,
       } = req.body;
 
-      const formataData = new Date(hireDate);
+      if (!name || !email || !hireDate || !salary || !phone) {
+        return res.status(400).json({ message: 'os campos são obrigatórios' });
+      }
+      const formatDate = (dateString) => {
+        const [day, month, year] = dateString.split('/');
+        return new Date(`${year}-${month}-${day}`);
+      };
+      const formataDataHireDate = formatDate(hireDate);
+      const formataDataNascimento = formatDate(data_nascimento);
 
-      await funcionarioModel.criaFuncionario({
-        name, position, hireDate: formataData, salary,
+      if (isNaN(formataDataHireDate.getTime()) || isNaN(formataDataNascimento.getTime())) {
+        return res.status(400).json({ message: 'Data inválida' });
+      }
+
+      const funcionario = await funcionarioModel.criaFuncionario({
+
+        name,
+        data_nascimento: formataDataNascimento,
+        email,
+        phone,
+        address,
+        salary,
+        hireDate: formataDataHireDate,
+        position,
+        departamento,
+        status,
+        observacoes,
       });
+
+      if (!funcionario) {
+        return res.status(500).json({ message: 'Erro ao cadastrar o usuário no banco de dados' });
+      }
+
       return res.status(200).json({
-        message: 'Usuario cadastrado com sucesso', name, position, hireDate, salary,
+        message: 'Usuário cadastrado com sucesso',
+        data: {
+          name,
+          position,
+          hireDate: formataDataHireDate,
+          salary,
+        },
       });
     } catch (e) {
       console.log(e);
-      return res.json('erro ao cadastrado o usuario ');
+      return res.json('Erro ao cadastrar o usuário');
     }
   }
 
@@ -32,7 +69,7 @@ class FuncionarioController {
       }
       return res.status(200).json(users);
     } catch (e) {
-      return res.status.json({ message: 'erro ao encontrar usuarios' });
+      return res.status(500).json({ message: 'erro ao encontrar usuarios' });
     }
   }
 
@@ -61,7 +98,7 @@ class FuncionarioController {
 
       const formataData = new Date(hireDate);
 
-      const user = funcionarioModel.editaFuncionaro(req.params.id, {
+      const user = funcionarioModel.editaFuncionario(req.params.id, {
         name, position, hireDate: formataData, salary,
       });
 
