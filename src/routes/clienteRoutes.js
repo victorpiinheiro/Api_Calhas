@@ -3,7 +3,7 @@ import clienteController from '../controllers/ClienteController';
 
 const route = Router();
 
-route.post('/', clienteController.store);
+route.post('/cadastrar', clienteController.store);
 route.get('/', clienteController.index);
 route.get('/:id', clienteController.show);
 route.put('/:id', clienteController.update);

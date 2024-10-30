@@ -94,12 +94,25 @@ class FuncionarioController {
     try {
       const {
         name, position, hireDate, salary,
+        email, phone, address, data_nascimento,
+        departamento, status, observacoes,
       } = req.body;
 
       const formataData = new Date(hireDate);
+      const formataDataNascimento = new Date(data_nascimento);
 
-      const user = funcionarioModel.editaFuncionario(req.params.id, {
-        name, position, hireDate: formataData, salary,
+      const user = await funcionarioModel.editaFuncionario(req.params.id, {
+        name,
+        position,
+        hireDate: formataData,
+        salary,
+        email,
+        phone,
+        address,
+        data_nascimento: formataDataNascimento,
+        departamento,
+        status,
+        observacoes,
       });
 
       return res.status(200).json({ message: 'Usuario editado com sucesso', user });
