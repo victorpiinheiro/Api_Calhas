@@ -59,6 +59,8 @@ class Pedidos {
 
       const formataDados = pedidos.map((pedido) => {
         const {
+          id,
+          clienteId,
           description, price, status, dataPedido,
         } = pedido;
 
@@ -66,7 +68,7 @@ class Pedidos {
         const formataData = `${dia}/${mes}/${ano}`;
 
         return {
-          description, price, status, dataPedido: formataData,
+          id, clienteId, description, price, status, dataPedido: formataData,
         };
       });
 
