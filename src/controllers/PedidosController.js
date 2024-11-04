@@ -53,7 +53,7 @@ class Pedidos {
 
       if (pedidos.length === 0) {
         return res.status(401).json({
-          errors: ['nao há registros'],
+          error: 'nenhum pedido encontrado',
         });
       }
 

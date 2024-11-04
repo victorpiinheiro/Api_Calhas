@@ -9,15 +9,19 @@ class User {
     try {
       const { name, email, password } = req.body;
 
-      if (password.length < 6 || password.length > 30) return res.json('A senha deve ter entre 6 e 50 caracatres');
-      if (!validator.isEmail(email)) return res.json('email invalido');
-      const userExist = await userModel.veriryUser(email);
-      if (userExist) return res.json('Email ja existente');
+      if (password.length < 6 || password.length > 30) {
+        return res.status(400).json('A senha deve ter entre 6 e 50 caracatres');
+      }
+      if (!validator.isEmail(email)) return res.status(400).json('email invalido');
+
+      const userExist = await userModel.verifyUser(email);
+      if (userExist) return res.status(409).json('Email ja existente');
+
       const password_hash = await bcrypt.hash(password, 8);
 
       const newUser = await userModel.createUser({ name, email, password_hash });
 
-      return res.status(200).json({ user: newUser });
+      return res.status(201).json({ user: newUser });
     } catch (e) {
       console.log(e);
       return res.status(500).json({

@@ -65,7 +65,7 @@ class FuncionarioController {
       const users = await funcionarioModel.ListaFuncionarios();
 
       if (users.length < 1) {
-        return res.status(200).json({ message: 'Sem dados para mostrar' });
+        return res.status(401).json({ message: 'Sem usuario' });
       }
       return res.status(200).json(users);
     } catch (e) {
