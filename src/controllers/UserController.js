@@ -38,8 +38,7 @@ class User {
 
   async show(req, res) {
     try {
-      const { id } = req.params;
-      const user = await userModel.getUserById(id);
+      const user = await userModel.getUserById(req.userId);
       if (!user) res.status(200).json({ message: 'Usuario nao foi encontrado' });
 
       return res.status(200).json({ user });

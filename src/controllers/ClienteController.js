@@ -6,14 +6,14 @@ class ClienteController {
   async store(req, res) {
     try {
       const {
-        name, email, phone, adress,
+        name, email, phone, adress, cpf,
       } = req.body;
       await clienteModel.criaCliente({
-        name, email, phone, adress,
+        name, email, phone, adress, cpf,
       });
 
       return res.status(200).json({
-        message: 'Usuario cadastrado com sucesso', name, email, phone, adress,
+        message: 'Usuario cadastrado com sucesso', name, email, phone, adress, cpf,
       });
     } catch (e) {
       return res.status(500).json({ error: 'erro ao cadastrar o usuario', details: e.message });
@@ -61,7 +61,7 @@ class ClienteController {
       return res.status(201).json({ message: 'Usuario excluido com sucesso' });
     } catch (e) {
       console.log(e);
-      return res.status(500).json({ message: 'erro ao excluir o usuario' });
+      return res.status(500).json({ message: 'erro ao excluir o usuario', e });
     }
   }
 }
