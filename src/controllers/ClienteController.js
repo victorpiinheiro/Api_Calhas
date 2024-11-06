@@ -32,7 +32,7 @@ class ClienteController {
   async show(req, res) {
     try {
       const oneUser = await clienteModel.getOneCliente(req.params.id);
-      return res.status(201).json({ message: 'Usuario encontrado', user: oneUser });
+      return res.status(201).json(oneUser);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ messagem: 'Erroao encontrar o usuario', details: e.message });
