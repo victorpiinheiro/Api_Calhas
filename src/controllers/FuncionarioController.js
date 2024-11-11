@@ -95,11 +95,12 @@ class FuncionarioController {
       const {
         name, position, hireDate, salary,
         email, phone, address, data_nascimento,
-        departamento, status, observacoes,
+        departamento, status, observacoes, data_demissao,
       } = req.body;
 
       const formataData = new Date(hireDate);
       const formataDataNascimento = new Date(data_nascimento);
+      const formataDataDemissao = new Date(data_demissao);
 
       const user = await funcionarioModel.editaFuncionario(req.params.id, {
         name,
@@ -110,14 +111,17 @@ class FuncionarioController {
         phone,
         address,
         data_nascimento: formataDataNascimento,
+        data_demissao: formataDataDemissao,
         departamento,
         status,
         observacoes,
       });
 
+      if (!user) return res.status(401).json('erro ao editar usuairo');
+
       return res.status(200).json({ message: 'Usuario editado com sucesso', user });
     } catch (e) {
-      console.log(e.code);
+      console.log('meu erro é: ', e);
       return res.status(500).json({ message: 'Erro ao editar o usuario' });
     }
   }

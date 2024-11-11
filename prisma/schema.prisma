@@ -46,7 +46,10 @@ model Funcionario {
 
 enum Status {
   ativo
-  inativo
+  ferias
+  licenca
+  demitido
+
 }
 
 model Produto {
