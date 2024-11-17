@@ -111,7 +111,7 @@ class FuncionarioController {
         phone,
         address,
         data_nascimento: formataDataNascimento,
-        data_demissao: formataDataDemissao,
+        data_demissao: data_demissao ? formataDataDemissao : null,
         departamento,
         status,
         observacoes,
